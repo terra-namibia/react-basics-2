@@ -1,86 +1,56 @@
-// /* eslint react-hooks/exhaustive-deps: */
-import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
-import ColorfulMessage from "./components/ColorfulMessage";
-import { ChildArea } from "./components/ChildArea";
-import { InlineStyle } from "./components/InlineStyle";
-import { CssModules } from "./components/CssModules";
-import { StyledJsx } from "./components/StyledJsx";
-import { StyledComponents } from "./components/StyledComponents";
-import { Emotion } from "./components/Emotion";
-import { Router } from "./router/Router";
+// import './App.css';
+import { useState, useCallback } from 'react';
+// import ChildArea from './components/ChildArea';
+// import InlineStyle from './components/InlineStyle';
+// import CssModules from './components/CssModules';
+// import StyledJsx from './components/StyledJsx';
+// import StyledComponents from './components/StyledComponents';
+// import Emotion from './components/Emotion';
+import { BrowserRouter, Link } from 'react-router-dom';
+// import Router from './router/Router';
+import { PrimaryButton } from './components/atoms/button/PrimaryButton';
+import { SecondaryButton } from './components/atoms/button/SecondaryButton';
+import { SearchInput } from './components/moreculres/SearchInput';
+import { UserCard } from './components/organisms/user/UserCard';
+import { HeaderOnly } from './components/templates/HeaderOnly';
+import { DefaultLayout } from './components/templates/DefaultLayout';
 
-const App = () => {
-  console.log("Appをレンダリング");
-
-  const [num, setNum] = useState(0);
-  const [faceShowFlag, setFaceShowFlag] = useState(true);
-
-  const onClickbCountup = () => {
-    setNum(num + 1);
+function App() {
+  const [count, setCount] = useState(0);
+  const countUp = () => {
+    setCount(count + 1);
   };
 
-  const onClickbSwitchShowFlag = () => {
-    setFaceShowFlag(!faceShowFlag);
-  };
-
+  const [text, setText] = useState('');
   const [open, setOpen] = useState(false);
-  const onClickOpen = () => {
-    setOpen(!open);
+  const handleClose = useCallback(() => setOpen(false), []);
+  const user = {
+    name: 'appletizer',
+    image: 'https://source.unsplash.com/random/200x200',
+    email: 'XXXXX@test.com',
+    tel: 'XXXXX',
+    address: 'hogehoge',
+    company: {
+      name: 'test.com',
+    },
   };
-
-  const onClickClose = useCallback(() => setOpen(false), []);
-
-  const childAreaMessage = useMemo(() => console.log("aaaaaa"), []);
-
-  useEffect(() => {
-    console.log("useEffect実行");
-    if (num > 0) {
-      if (num % 3 === 0) {
-        faceShowFlag || setFaceShowFlag(true);
-      } else {
-        faceShowFlag && setFaceShowFlag(false);
-      }
-    }
-  }, [num]);
-
   return (
     <BrowserRouter>
-      <React.Fragment>
-        <Link to="/">Home</Link>
-        <br />
-        <Link to="/page1">Page1</Link>
-        <br />
-        <Link to="/page2">Page2</Link>
-        <Router />
+      <DefaultLayout>
+        <div className="App">
 
-        <InlineStyle />
-        {/* <CssModules /> */}
-        <StyledJsx />
-        <StyledComponents />
-        <Emotion />
-
-        <h1 style={{ color: "green" }}>こんにちは</h1>
-        <ColorfulMessage color="blue" message="お元気ですか">
-          ??
-        </ColorfulMessage>
-        <ColorfulMessage color="pink" message="元気です">
-          ！！
-        </ColorfulMessage>
-        <button onClick={onClickbCountup}>カウントアップ</button>
-        <br />
-        <button onClick={onClickbSwitchShowFlag}>on/off</button>
-        <p>{num}</p>
-        {faceShowFlag && <p> "(｀・ω・´)" }</p>}
-        <button onClick={onClickOpen}>表示</button>
-        <ChildArea
-          open={open}
-          onClickClose={onClickClose}
-          childAreaMessage={childAreaMessage}
-        />
-      </React.Fragment>
+          <main>
+            {/* <PrimaryButton open={111}>test1</PrimaryButton>
+            <SecondaryButton>test</SecondaryButton> */}
+            <br />
+            <SearchInput />
+            <br />
+            <UserCard user={user} />
+          </main>
+        </div>
+      </DefaultLayout>
     </BrowserRouter>
   );
-};
+}
 
 export default App;
