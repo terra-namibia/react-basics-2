@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 import { Card } from '../../atoms/card/Card';
 import { UserIconWithName } from '../../moreculres/user/UserIconWithName';
 
-export const UserCard = (props) => {
+export const UserCard = memo((props) => {
   const user = props.user;
 
   return (
@@ -20,7 +21,7 @@ export const UserCard = (props) => {
       </SDl>
     </Card>
   );
-};
+});
 
 const SDl = styled.dl`
   margin-bottom: 0;
