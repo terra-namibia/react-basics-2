@@ -1,3 +1,4 @@
+import axios from 'axios';
 import styled from 'styled-components';
 import { SearchInput } from '../moreculres/SearchInput';
 import { UserCard } from '../organisms/user/UserCard';
@@ -6,6 +7,7 @@ export const Users = () => {
   return (
     <SContainer>
       <h2>User List</h2>
+      <button onClick={onClickUsers}>ユーザーapi</button>
       <SearchInput />
       <SUserArea>
         {users.map((user) => (
@@ -29,6 +31,22 @@ const users = [...Array(10).keys()].map((val) => {
     },
   };
 });
+
+const onClickUsers = () => {
+  axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+    // console.log(res.data);
+    res.data.map((val) => {
+      console.log(val.name);
+    })
+  }).catch((err) => {console.log(err)});
+  axios.get("https://jsonplaceholder.typicode.com/users/1").then((res) => {
+    console.log(`user1: ${res.data.name}`);
+    // res.data.map((val) => {
+    //   console.log(val.name);
+    // })
+  }).catch((err) => {console.log(err)});
+  
+}
 
 const SContainer = styled.div`
   text-align: center;
