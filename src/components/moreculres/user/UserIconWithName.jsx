@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { UserContext } from '../../../providers/UserProvider';
 
 export const UserIconWithName = (props) => {
   // const { user } = props;
   const { image, name } = props.user;
+  const context = useContext(UserContext);
 
 
   return (
