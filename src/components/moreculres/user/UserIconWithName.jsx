@@ -5,13 +5,14 @@ import { UserContext } from '../../../providers/UserProvider';
 export const UserIconWithName = (props) => {
   // const { user } = props;
   const { image, name } = props.user;
-  const context = useContext(UserContext);
-
+  const { userInfo } = useContext(UserContext);
+  const isAdmin = userInfo ? userInfo.isAdmin : false;
 
   return (
     <SContainer>
       <SImage src={image} alt="prof img" />
       <SName>{name}</SName>
+      { isAdmin && <SEdit>編集</SEdit>}
     </SContainer>
   );
 };
@@ -28,3 +29,8 @@ const SName = styled.p`
   margin: 0;
   color: #40514e;
 `;
+const SEdit = styled.span`
+  text-decoration: underline;
+  color: #aaa;
+  cursor: pointer;
+`
